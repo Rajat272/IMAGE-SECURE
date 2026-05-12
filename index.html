@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE-IMG | DES Image Encryption System</title>
+    <meta name="description" content="A professional-grade image encryption and decryption tool using the Data Encryption Standard (DES) algorithm.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="accent">SECURE</span>-IMG
+            </div>
+            <p class="subtitle">Advanced DES Image Encryption & Decryption Engine</p>
+        </header>
+
+        <main>
+            <section class="controls-panel card">
+                <div class="control-group">
+                    <label for="imageInput">Step 1: Upload Image</label>
+                    <div class="upload-area" id="dropZone">
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <div class="upload-info">
+                            <span class="icon">📁</span>
+                            <p>Drag & drop or <span class="highlight">browse</span></p>
+                            <p class="small">Supports PNG, JPG, JPEG</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="encryptionKey">Step 2: Encryption Key (8 Characters)</label>
+                    <input type="password" id="encryptionKey" maxlength="8" placeholder="Enter 8-character key" class="key-input">
+                    <div class="key-hint">DES requires exactly 8 bytes (8 characters).</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="encryptBtn" class="btn btn-primary" disabled>
+                        <span class="btn-icon">🔒</span> Encrypt Image
+                    </button>
+                    <button id="decryptBtn" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">🔓</span> Decrypt Image
+                    </button>
+                    <button id="resetBtn" class="btn btn-outline">Reset</button>
+                </div>
+            </section>
+
+            <section class="visualizer-grid">
+                <div class="view-card" id="originalView">
+                    <h3>Original Image</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="originalCanvas"></canvas>
+                        <div class="empty-state">No Image Uploaded</div>
+                    </div>
+                    <div class="view-footer" id="originalInfo">-</div>
+                </div>
+
+                <div class="view-card" id="encryptedView">
+                    <h3>Encrypted Data (Noise)</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="encryptedCanvas"></canvas>
+                        <div class="empty-state">Not Encrypted</div>
+                    </div>
+                    <div class="view-footer" id="encryptedInfo">-</div>
+                </div>
+
+                <div class="view-card" id="decryptedView">
+                    <h3>Decrypted Result</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="decryptedCanvas"></canvas>
+                        <div class="empty-state">Not Decrypted</div>
+                    </div>
+                    <div class="view-footer" id="decryptedInfo">-</div>
+                </div>
+            </section>
+
+            <section class="stats-panel card">
+                <div class="stat-item">
+                    <span class="label">Processing Time:</span>
+                    <span class="value" id="procTime">0ms</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Data Integrity:</span>
+                    <span class="value" id="integrityStatus">N/A</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Status:</span>
+                    <span class="value accent" id="appStatus">Ready</span>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 SECURE-IMG | Data Encryption Standard Implementation</p>
+        </footer>
+    </div>
+
+    <div id="loader" class="loader-overlay hidden">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Processing Image Data...</p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
